@@ -2,11 +2,10 @@ import pandas as pd
 import numpy as np
 
 import neo4j
+import os
 
-
-
-con = neo4j.Neo4jConnector("bolt+s://cas-testlab-neo4j.co.uk:7687", "scratchuser", "Berlin99!")
-
+password = os.getenv("NEO4J_PWD")
+con = neo4j.GraphDatabase.driver("bolt+s://cas-testlab-neo4j.co.uk:7687", auth=("scratchuser", password))
 # Run any Cypher query (e.g. remove all nodes and relationships)
 # con.query("MATCH (n) DETACH DELETE n")
 con.query("MATCH (n) RETURN n")
